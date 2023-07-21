@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 const router = express.Router();
 
-router.post('/createUser', async (req, res) => {
+router.post('/register', async (req, res) => {
     const userInfo = req.body.values;
     try {
         const hashedPassword = UserService.generateHashPassword(userInfo.password);
@@ -33,17 +33,16 @@ router.post('/createUser', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
+    const userInfo = req.body.values;
     try {
-
         const user = await User.findOne({
-            where: {email: req.body.email},
-            attributes: [_id, password],
-        })
+            email: userInfo.email
+        });
 
         if (user) {
             const userID = user._id;
             const hashedPassword = user.password;
-            const isMatch = bcrypt.compareSync(req.body.password, hashedPassword);
+            const isMatch = bcrypt.compareSync(userInfo.password, hashedPassword);
     
             if (isMatch) {
                 return res.send({ sign: true, userID });

@@ -35,7 +35,7 @@ const tailFormItemLayout = {
     },
   },
 };
-const link = 'http://localhost:5050/users/createUser';
+const link = 'http://localhost:5050/users/register';
 const RegistrationPage = () => {
   const [form] = Form.useForm();
   const onFinish = async (values) => {
