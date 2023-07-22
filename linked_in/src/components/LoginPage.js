@@ -38,14 +38,16 @@ import {
   
   const link = 'http://localhost:5050/users/login';
 
-  const LoginPage = () => {
+  const LoginPage = ({onLoginSuccess}) => {
     const [form] = Form.useForm();
     const onFinish = async (values) => {
       console.log('Received values of form: ', values);
   
       const response = await axios.post(`${link}`, {values});
-  
-      console.log(response);
+
+      if(response.data.sign) {
+        onLoginSuccess(response.data.userID);
+      }
     };
   
     return (

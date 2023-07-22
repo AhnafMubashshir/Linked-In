@@ -3,16 +3,19 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/createPost', async (req, res) => {
-    console.log(req.body);
+    const postInfo = req.body.postValue;
+    const userID = req.body.userID;
 
     try {
         const post = new Post ({
-            title: req.body.title,
-            body: req.body.body,
-            userID: req.body.userID,
+            title: postInfo.postTitle,
+            body: postInfo.postBody,
+            userID: userID,
         });
 
         await post.save();
+
+        console.log('Post created succesfully');
 
         res.json(post);
 
