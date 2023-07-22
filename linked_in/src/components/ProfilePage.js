@@ -5,7 +5,7 @@ import PostCreation from './PostCreation';
 
 const link = 'http://localhost:5050';
 
-const ProfilePage = ({onPostButtonClicked}) => {
+const ProfilePage = () => {
 
   const userID = localStorage.getItem('userID');
   const [userData, setUserData] = useState();
@@ -19,10 +19,6 @@ const ProfilePage = ({onPostButtonClicked}) => {
 
     fetchUserData();
   }, [userID]);
-
-  const handlePostCreation = () => {
-    onPostButtonClicked()
-  };
 
   if (!userData) {
     return (<Spin />);
@@ -47,7 +43,7 @@ const ProfilePage = ({onPostButtonClicked}) => {
       <br/>
       <br/>
       <br/>
-      <PostCreation onPosCreated={handlePostCreation}/>
+      <PostCreation />
     </>
   );
 };

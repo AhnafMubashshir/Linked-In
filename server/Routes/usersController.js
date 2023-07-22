@@ -67,8 +67,6 @@ router.post('/getUserInfo', async (req, res) => {
             _id: userID
         });
 
-        console.log(user);
-
         res.json({name: user.name, email: user.email, age: user.age});
     } catch (error) {
         console.log(error);

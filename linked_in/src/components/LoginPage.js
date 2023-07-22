@@ -5,6 +5,7 @@ import {
   } from 'antd';
   import React from 'react';
   import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
   const formItemLayout = {
     labelCol: {
       xs: {
@@ -38,15 +39,19 @@ import {
   
   const link = 'http://localhost:5050/users/login';
 
-  const LoginPage = ({onLoginSuccess}) => {
+  const LoginPage = () => {
     const [form] = Form.useForm();
+    const navigate = useNavigate();
+
     const onFinish = async (values) => {
       console.log('Received values of form: ', values);
   
       const response = await axios.post(`${link}`, {values});
 
       if(response.data.sign) {
-        onLoginSuccess(response.data.userID);
+        localStorage.setItem('userID', response.data.userID);
+        localStorage.setItem('isLoggedIn', true);
+        navigate(`/profile/${response.data.userID}`);
       }
     };
   

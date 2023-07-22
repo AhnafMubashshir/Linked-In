@@ -5,6 +5,7 @@ import {
 } from 'antd';
 import React from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -38,12 +39,16 @@ const tailFormItemLayout = {
 const link = 'http://localhost:5050/users/register';
 const RegistrationPage = () => {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+
   const onFinish = async (values) => {
     console.log('Received values of form: ', values);
 
     const response = await axios.post(`${link}`, {values});
 
     console.log(response);
+
+    navigate('/login');
   };
 
   return (

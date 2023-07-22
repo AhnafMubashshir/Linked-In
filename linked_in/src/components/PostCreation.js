@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const link = 'http://localhost:5050';
 
-const PostCreation = ({onPosCreated}) => {
+const PostCreation = () => {
 
   const userID = localStorage.getItem('userID');
   const [postValue, setPostValue] = useState();
@@ -27,7 +27,6 @@ const PostCreation = ({onPosCreated}) => {
     console.log(response);
     setPostValue({});
     navigate('/');
-    onPosCreated();
   };
 
   return (

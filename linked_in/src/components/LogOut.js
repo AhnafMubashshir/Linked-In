@@ -1,19 +1,16 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const LogOut = ({onLogOut}) => {
+const LogOut = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('Hello');
         localStorage.clear('isLoggedIn');
         localStorage.clear('userID');
-        localStorage.clear('activeComponent');
 
         navigate('/login');
 
-        onLogOut();
-    }, [navigate, onLogOut])
+    }, [navigate]);
 }
 
-export default LogOut
+export default LogOut;

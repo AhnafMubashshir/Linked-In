@@ -12,9 +12,11 @@ connectDB();
 
 const UserController = require('./Routes/usersController');
 const PostController = require('./Routes/postsController');
+const NotificationController = require('./Routes/notificationsController');
 
 app.use('/users', UserController);
 app.use('/posts', PostController);
+app.use('/notifications', NotificationController);
 
 // start the Express server
 app.listen(PORT, () => {
