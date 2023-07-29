@@ -45,6 +45,9 @@ const CustomPostViewerPage = () => {
                     )
                 }
                 title={post.creator}
+                description={
+                    <p>{new Date(post.createdAt).toLocaleString()}</p>
+                }
             />
 
             <br />
