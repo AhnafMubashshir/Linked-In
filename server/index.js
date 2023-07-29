@@ -13,10 +13,12 @@ connectDB();
 const UserController = require('./Routes/usersController');
 const PostController = require('./Routes/postsController');
 const NotificationController = require('./Routes/notificationsController');
+const FileUploadController = require('./Routes/fileUploadController');
 
 app.use('/users', UserController);
 app.use('/posts', PostController);
 app.use('/notifications', NotificationController);
+app.use('/upload', FileUploadController);
 
 // start the Express server
 app.listen(PORT, () => {

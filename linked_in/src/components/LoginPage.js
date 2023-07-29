@@ -51,7 +51,7 @@ import { useNavigate } from 'react-router-dom';
       if(response.data.sign) {
         localStorage.setItem('userID', response.data.userID);
         localStorage.setItem('isLoggedIn', true);
-        navigate(`/profile/${response.data.userID}`);
+        navigate(`/`);
       }
     };
   

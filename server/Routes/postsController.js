@@ -24,7 +24,7 @@ router.post('/getPostInfo', async (req, res) => {
     const postID = req.body.postID;
 
     try {
-        const post = await Post.findOne({_id: postID});
+        const post = await Post.findOne({ _id: postID });
 
         console.log(`post with _id: ${postID} fetched`);
 
@@ -40,15 +40,17 @@ router.post('/getPostInfo', async (req, res) => {
 router.post('/createPost', async (req, res) => {
     const postInfo = req.body.postValue;
     const userID = req.body.userID;
+    const images = req.body.allURL;
     const seen = false;
 
     try {
         const creator = await User.findOne({ _id: userID });
 
-        const post = new Post ({
-            title: postInfo.postTitle,
+        const post = new Post({
             body: postInfo.postBody,
-            userID: userID,
+            creatorID: userID,
+            creator: creator.name,
+            images: images,
         });
 
         await post.save();
@@ -56,11 +58,17 @@ router.post('/createPost', async (req, res) => {
         console.log('Post created succesfully');
 
         const allUsersExceptCreator = await User.find({ _id: { $ne: userID } });
-        const notificationMessage = `New post: ${post.title} created by: ${creator.name}.`;
+        
+        const maxBodyLength = 100; // Choose an appropriate value based on your requirements
+        const truncatedBody = post.body.length > maxBodyLength
+            ? post.body.slice(0, maxBodyLength) + '...'
+            : post.body;
+        const notificationMessage = `New post: ${truncatedBody} created by: ${creator.name}.`;
+
         const notificationRecipients = allUsersExceptCreator.map(user => ({
             user: user._id,
             seen: seen,
-          }));
+        }));
 
         console.log(notificationRecipients);
 

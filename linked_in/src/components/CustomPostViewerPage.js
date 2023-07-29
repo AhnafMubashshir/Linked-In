@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Spin } from 'antd';
+import { Card, Spin, Image, Avatar } from 'antd';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import PostDescription from './PostDescription';
 const { Meta } = Card;
 
 const link = 'http://localhost:5050';
+const imageLink = 'http://192.168.0.107:9000/linkedinimages';
 
 const CustomPostViewerPage = () => {
     const { postID } = useParams();
@@ -17,9 +19,9 @@ const CustomPostViewerPage = () => {
             console.log(response);
 
             setPost(response.data);
-          }
-      
-          fetchUserData();
+        }
+
+        fetchUserData();
     }, [postID]);
 
     if (!post) {
@@ -28,12 +30,46 @@ const CustomPostViewerPage = () => {
 
     return (
         <Card
+            key={post._id} // Add a unique key to the Card component
             style={{
-                width: post.img ? 500: 800,
+                width: 800,
+                marginBottom: 40
             }}
-            cover={post.img ? <img alt="example" src={post.img} /> : null}
         >
-            <Meta title={post.title} description={post.body} />
+            <Meta
+                avatar={
+                    post.userIMG ? (
+                        <Avatar src={post.userIMG} style={{ width: '50px', height: '50px' }} />
+                    ) : (
+                        <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" style={{ width: '50px', height: '50px' }} />
+                    )
+                }
+                title={post.creator}
+            />
+
+            <br />
+            <br />
+
+            <p>
+                {<PostDescription fullDescription={post.body} />}
+            </p>
+
+            <br />
+            <br />
+            <br />
+
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Image.PreviewGroup
+                    preview={{
+                        onChange: (current, prev) => console.log(`current index: ${current}, prev index: ${prev}`),
+                    }}
+                >
+                    {post.images.map((image) => (
+                        <Image src={`${imageLink}/${image}`} alt="Image" width={550} />
+
+                    ))}
+                </Image.PreviewGroup>
+            </div>
         </Card>
     );
 }
