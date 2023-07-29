@@ -68,8 +68,7 @@ const HomePage = () => {
               }}
             >
               {post.images.map((image) => (
-                <Image src={`${imageLink}/${image}`} alt="Image" width={550} />
-
+                <Image src={`${imageLink}/${image}`} alt="Image" width={550}/>
               ))}
             </Image.PreviewGroup>
           </div>
