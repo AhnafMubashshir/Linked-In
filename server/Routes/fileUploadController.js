@@ -12,8 +12,8 @@ var minioClient = new Minio.Client({
     endPoint: '192.168.0.107',
     port: 9000,
     useSSL: false,
-    accessKey: 'RihWvgV6ttoZfMsVC3T3',
-    secretKey: 'V8pdBlDrvLOUA8ZLlZvemSTh3fv0vm2RIxikaYRs'
+    accessKey: 'QhNErohrKnLPe60xM6tc',
+    secretKey: 'wdVKF0Zr3YOwYf18kH3YzY9vOm8JH7PalccwH0CE'
 });
 
 var policy = {

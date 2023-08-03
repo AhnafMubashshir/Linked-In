@@ -45,12 +45,14 @@ router.post('/createPost', async (req, res) => {
 
     try {
         const creator = await User.findOne({ _id: userID });
+        console.log(creator);
 
         const post = new Post({
             body: postInfo.postBody,
             creatorID: userID,
             creator: creator.name,
             images: images,
+            userImage: creator.image,
         });
 
         await post.save();
@@ -77,6 +79,7 @@ router.post('/createPost', async (req, res) => {
             recipients: notificationRecipients,
             postID: post._id,
             creatorID: userID,
+            creatorImage: creator.image,
         });
 
         await notification.save();

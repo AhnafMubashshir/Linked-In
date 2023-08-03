@@ -7,6 +7,8 @@ const router = express.Router();
 
 router.post('/register', async (req, res) => {
     const userInfo = req.body.values;
+    const image = req.body.allURL[0];
+    console.log(image);
     try {
         const hashedPassword = UserService.generateHashPassword(userInfo.password);
         const isMatch = bcrypt.compareSync(userInfo.password, hashedPassword);
@@ -16,7 +18,8 @@ router.post('/register', async (req, res) => {
                 name: userInfo.name,
                 email: userInfo.email,
                 password: hashedPassword,
-                age: userInfo.age
+                age: userInfo.age,
+                image: image,
             });
     
             await user.save();
@@ -67,7 +70,7 @@ router.post('/getUserInfo', async (req, res) => {
             _id: userID
         });
 
-        res.json({name: user.name, email: user.email, age: user.age});
+        res.json({name: user.name, email: user.email, age: user.age, image: user.image});
     } catch (error) {
         console.log(error);
         res.send(error);

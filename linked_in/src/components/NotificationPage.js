@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const { Meta } = Card;
 
 const link = 'http://localhost:5050';
+const imageLink = 'http://192.168.0.107:9000/linkedinimages';
 
 const NotificationPage = () => {
   const [notifications, setNotifications] = useState([]);
@@ -15,6 +16,7 @@ const NotificationPage = () => {
     const fetchNotifications = async () => {
       try {
         const response = await axios.post(`${link}/notifications/getNotifications`, { userID });
+        console.log(response.data);
         setNotifications(response.data);
       } catch (error) {
         console.log(error);
@@ -58,8 +60,8 @@ const NotificationPage = () => {
               onClick={() => handleNotificationClick(notification.postID, notification._id)}
             >
               <Meta
-                avatar={notification.userIMG ?
-                  <Avatar src={notification.userIMG} /> :
+                avatar={notification.creatorImage ?
+                  <Avatar src={`${imageLink}/${notification.creatorImage}`} /> :
                   <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />
                 }
                 description={!seen ? <strong style={{ color: 'black', fontSize: 17}}>{notification.message}</strong> : notification.message}

@@ -22,6 +22,9 @@ const notificationSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  creatorImage: {
+    type: String,
+  },
   postID: {
     type: String,
     require: true,
@@ -29,7 +32,6 @@ const notificationSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    // expires: 5,
   },
 });
 

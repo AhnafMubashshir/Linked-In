@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Descriptions, Spin, Row, Col } from 'antd';
+import { Descriptions, Spin, Row, Col, Image } from 'antd';
 import PostCreation from './PostCreation';
 
 const link = 'http://localhost:5050';
+const imageLink = 'http://192.168.0.107:9000/linkedinimages';
 
 const ProfilePage = () => {
 
@@ -13,6 +14,8 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       const response = await axios.post(`${link}/users/getUserInfo`, { userID });
+
+      console.log(response.data);
 
       setUserData(response.data);
     }
@@ -26,6 +29,26 @@ const ProfilePage = () => {
 
   return (
     <>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Image
+          style={{
+            width: 150,
+            height: 150,
+            borderRadius: '100%',
+            objectFit: 'cover',
+            overflow: 'hidden',
+          }}
+          preview={false}
+          width={200}
+          src={`${imageLink}/${userData.image}`}
+        />
+      </div>
+      
+      <br />
+      <br />
+      <br />
+      <br />
+      
       <Row>
         <Col span={24}>
           <Descriptions title="User Info" bordered>
@@ -35,15 +58,14 @@ const ProfilePage = () => {
           </Descriptions>
         </Col>
       </Row>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <PostCreation />
+      <br />
+      {/* <br /> */}
     </>
   );
 };

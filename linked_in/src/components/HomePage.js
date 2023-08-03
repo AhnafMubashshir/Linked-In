@@ -34,12 +34,11 @@ const HomePage = () => {
             width: 800,
             marginBottom: 40
           }}
-          // onClick={() => hanldeCardClick(post._id)}
         >
           <Meta
             avatar={
-              post.userIMG ? (
-                <Avatar src={post.userIMG} style={{ width: '50px', height: '50px' }} />
+              post.userImage ? (
+                <Avatar src={`${imageLink}/${post.userImage}`} style={{ width: '50px', height: '50px' }} />
               ) : (
                 <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" style={{ width: '50px', height: '50px' }} />
               )
