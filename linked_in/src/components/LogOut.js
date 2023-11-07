@@ -6,7 +6,7 @@ const LogOut = () => {
 
     useEffect(() => {
         localStorage.clear('isLoggedIn');
-        localStorage.clear('userID');
+        localStorage.clear('token');
 
         navigate('/login');
 

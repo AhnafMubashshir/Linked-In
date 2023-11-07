@@ -37,7 +37,7 @@ import { useNavigate } from 'react-router-dom';
     },
   };
   
-  const link = 'http://localhost:5050/users/login';
+  const link = 'http://localhost:6004';
 
   const LoginPage = () => {
     const [form] = Form.useForm();
@@ -46,11 +46,12 @@ import { useNavigate } from 'react-router-dom';
     const onFinish = async (values) => {
       console.log('Received values of form: ', values);
   
-      const response = await axios.post(`${link}`, {values});
+      const response = await axios.post(`${link}/users/login`, {values});
 
       if(response.data.sign) {
-        localStorage.setItem('userID', response.data.userID);
         localStorage.setItem('isLoggedIn', true);
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userID', response.data.userID);
         navigate(`/`);
       }
     };

@@ -37,7 +37,7 @@ const tailFormItemLayout = {
     },
   },
 };
-const link = 'http://localhost:5050';
+const link = 'http://localhost:6004';
 const RegistrationPage = () => {
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState([]);

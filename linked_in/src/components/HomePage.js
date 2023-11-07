@@ -4,21 +4,33 @@ import { Card, Avatar, Spin, Image } from 'antd';
 import PostDescription from './PostDescription';
 const { Meta } = Card;
 
-const link = 'http://localhost:5050';
+const link = 'http://localhost:6003';
 const imageLink = 'http://192.168.0.107:9000/linkedinimages';
 
 
 const HomePage = () => {
+  const token = localStorage.getItem('token');
 
   const [allPosts, setAllPosts] = useState();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get(`${link}/posts/getPosts`);
-      setAllPosts(response.data);
-    };
-
-    fetchData();
+    console.log("hello");
+    fetch(`${link}/posts/getPosts`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch home page data');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setAllPosts(data);
+      })
+      .catch((error) => console.error(error));
   }, []);
 
   if (!allPosts) {
@@ -45,7 +57,7 @@ const HomePage = () => {
             }
             title={post.creator}
             description={
-                <p>{new Date(post.createdAt).toLocaleString()}</p>
+              <p>{new Date(post.createdAt).toLocaleString()}</p>
             }
           />
 
@@ -53,7 +65,7 @@ const HomePage = () => {
           <br />
 
           <p>
-          {<PostDescription fullDescription={post.body} />}
+            {<PostDescription fullDescription={post.body} />}
           </p>
 
           <br />
@@ -67,7 +79,7 @@ const HomePage = () => {
               }}
             >
               {post.images.map((image) => (
-                <Image src={`${imageLink}/${image}`} alt="Image" width={550}/>
+                <Image src={`${imageLink}/${image}`} alt="Image" width={550} />
               ))}
             </Image.PreviewGroup>
           </div>

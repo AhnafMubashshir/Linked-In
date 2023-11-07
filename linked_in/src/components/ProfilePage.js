@@ -3,21 +3,34 @@ import React, { useEffect, useState } from 'react';
 import { Descriptions, Spin, Row, Col, Image } from 'antd';
 import PostCreation from './PostCreation';
 
-const link = 'http://localhost:5050';
+const link = 'http://localhost:6004';
 const imageLink = 'http://192.168.0.107:9000/linkedinimages';
 
 const ProfilePage = () => {
 
   const userID = localStorage.getItem('userID');
   const [userData, setUserData] = useState();
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const response = await axios.post(`${link}/users/getUserInfo`, { userID });
-
-      console.log(response.data);
-
-      setUserData(response.data);
+      fetch(`${link}/users/getUserInfo`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Failed to fetch profile data');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            setUserData(data);
+            console.log(data);
+          })
+          .catch((error) => console.error(error));
     }
 
     fetchUserData();

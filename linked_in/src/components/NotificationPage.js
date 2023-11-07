@@ -11,13 +11,29 @@ const NotificationPage = () => {
   const [notifications, setNotifications] = useState([]);
   const userID = localStorage.getItem('userID');
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+
+  const link = 'http://localhost:6002';
 
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const response = await axios.post(`${link}/notifications/getNotifications`, { userID });
-        console.log(response.data);
-        setNotifications(response.data);
+        fetch(`${link}/notifications/getNotifications`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Failed to fetch quiz data');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            setNotifications(data.notifications);
+          })
+          .catch((error) => console.error(error));
       } catch (error) {
         console.log(error);
       }
@@ -64,7 +80,7 @@ const NotificationPage = () => {
                   <Avatar src={`${imageLink}/${notification.creatorImage}`} /> :
                   <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />
                 }
-                description={!seen ? <strong style={{ color: 'black', fontSize: 17}}>{notification.message}</strong> : notification.message}
+                description={!seen ? <strong style={{ color: 'black', fontSize: 17 }}>{notification.message}</strong> : notification.message}
               />
             </Card>
           </React.Fragment>

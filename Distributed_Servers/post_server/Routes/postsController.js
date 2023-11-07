@@ -6,11 +6,14 @@ const axios = require('axios');
 router.get('/getPosts', async (req, res) => {
 
     try {
-        const authResponse = await axios.post('http://localhost:5050/users/authenticate', {
+        const authResponse = await axios.post('http://localhost:6004/users/authenticate', {
             headers: req.headers,
         });
 
-        const posts = await Post.find({ creatorID: { $ne: authResponse.data.id } }).sort({ createdAt: -1 });;
+        const posts = await Post.find({ creatorID: { $ne: authResponse.data.id } }).sort({ createdAt: -1 });
+
+        console.log(authResponse.data);
+        console.log(posts);
 
         console.log('All posts fetched');
 
@@ -46,7 +49,7 @@ router.post('/createPost', async (req, res) => {
     const seen = false;
 
     try {
-        const authResponse = await axios.post('http://localhost:5050/users/authenticate', {
+        const authResponse = await axios.post('http://localhost:6004/users/authenticate', {
             headers: req.headers, // Pass the token received in the request headers
         });
 
@@ -63,7 +66,7 @@ router.post('/createPost', async (req, res) => {
 
         console.log('Post created succesfully');
 
-        const userResponse = await axios.post('http://localhost:5050/users/findUserExceptCreator', {
+        const userResponse = await axios.post('http://localhost:6004/users/findUserExceptCreator', {
             _id: { $ne: authResponse.data.id }
         });
 
@@ -82,7 +85,7 @@ router.post('/createPost', async (req, res) => {
 
         console.log(notificationRecipients);
 
-        const notificationConfirmation = await axios.post('http://localhost:5050/notifications/createNotification', {
+        const notificationConfirmation = await axios.post('http://localhost:6002/notifications/createNotification', {
             message: notificationMessage,
             recipients: notificationRecipients,
             postID: post._id,

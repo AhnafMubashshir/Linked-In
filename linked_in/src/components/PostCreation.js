@@ -4,7 +4,7 @@ import { Input, Button, Row, Col } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import Uploader from './Uploader';
 
-const link = 'http://localhost:5050';
+const link = 'http://localhost:6003';
 
 const PostCreation = () => {
 
@@ -12,6 +12,7 @@ const PostCreation = () => {
   const [postValue, setPostValue] = useState();
   const { TextArea } = Input;
   const navigate = useNavigate();
+  const token = localStorage.getItem('token')
 
   const [fileList, setFileList] = useState([]);
 
@@ -32,8 +33,26 @@ const PostCreation = () => {
       allURL.push(file.response.url);
     })
 
-    const response = await axios.post(`${link}/posts/createPost`, { postValue, userID, allURL });
-    console.log(response);
+    fetch(`${link}/posts/createPost`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        postValue,
+        userID,
+        allURL
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to post');
+        }
+        return response.json();
+      })
+      .catch((error) => console.error(error));
+
     setPostValue({});
     navigate('/');
   };
@@ -57,7 +76,7 @@ const PostCreation = () => {
       <br />
       <Row>
         <Col span={24}>
-          <Uploader onFileListChange={handleFileListChange} totalImageToUpload={8}/>
+          <Uploader onFileListChange={handleFileListChange} totalImageToUpload={8} />
         </Col>
       </Row>
       <br />

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { Modal, Upload } from 'antd';
 
-const link = 'http://localhost:5050';
+const link = 'http://localhost:6001';
 
 const getBase64 = (file) =>
     new Promise((resolve, reject) => {

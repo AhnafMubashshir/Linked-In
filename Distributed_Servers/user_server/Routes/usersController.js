@@ -81,7 +81,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/getUserInfo', async (req, res) => {
     try {
-        const authResponse = await axios.post('http://localhost:5050/users/authenticate', {
+        const authResponse = await axios.post('http://localhost:6004/users/authenticate', {
             headers: req.headers, // Pass the token received in the request headers
         });
 
