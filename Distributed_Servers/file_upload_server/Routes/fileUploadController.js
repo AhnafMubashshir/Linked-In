@@ -9,11 +9,11 @@ var Minio = require('minio');
 const bucketName = 'linkedinimages';
 
 var minioClient = new Minio.Client({
-    endPoint: 'localhost',
+    endPoint: 'host.docker.internal',
     port: 9000,
     useSSL: false,
-    accessKey: 'FsQgxbvJCpxEhmhlaKAW',
-    secretKey: 'fva8WCJa4DErTQYmJfY2MmAD8Wz9lszI9Vtcncnp'
+    accessKey: 'wzbfQ72dO44MRSDJnBGO',
+    secretKey: 'jeK6ciUOMkJXcFCLdIcegyxh3e1c3psRDf5cUXTl'
 });
 
 console.log(minioClient);

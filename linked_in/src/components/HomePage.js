@@ -5,13 +5,17 @@ import PostDescription from './PostDescription';
 const { Meta } = Card;
 
 const link = 'http://localhost';
-const imageLink = 'http://192.168.0.107:9000/linkedinimages';
+const imageLink = 'http://host.docker.internal:9000/linkedinimages';
 
 
 const HomePage = () => {
   const token = localStorage.getItem('token');
 
   const [allPosts, setAllPosts] = useState();
+
+  if (!token) {
+    return <Spin />;
+  }
 
   useEffect(() => {
     console.log("hello");
@@ -36,57 +40,58 @@ const HomePage = () => {
   if (!allPosts) {
     return <Spin />;
   }
+  else {
+    return (
+      <>
+        {allPosts.map((post) => (
+          <Card
+            key={post._id} // Add a unique key to the Card component
+            style={{
+              width: 800,
+              marginBottom: 40
+            }}
+          >
+            <Meta
+              avatar={
+                post.userImage ? (
+                  <Avatar src={`${imageLink}/${post.userImage}`} style={{ width: '50px', height: '50px' }} />
+                ) : (
+                  <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" style={{ width: '50px', height: '50px' }} />
+                )
+              }
+              title={post.creator}
+              description={
+                <p>{new Date(post.createdAt).toLocaleString()}</p>
+              }
+            />
 
-  return (
-    <>
-      {allPosts.map((post) => (
-        <Card
-          key={post._id} // Add a unique key to the Card component
-          style={{
-            width: 800,
-            marginBottom: 40
-          }}
-        >
-          <Meta
-            avatar={
-              post.userImage ? (
-                <Avatar src={`${imageLink}/${post.userImage}`} style={{ width: '50px', height: '50px' }} />
-              ) : (
-                <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" style={{ width: '50px', height: '50px' }} />
-              )
-            }
-            title={post.creator}
-            description={
-              <p>{new Date(post.createdAt).toLocaleString()}</p>
-            }
-          />
+            <br />
+            <br />
 
-          <br />
-          <br />
+            <p>
+              {<PostDescription fullDescription={post.body} />}
+            </p>
 
-          <p>
-            {<PostDescription fullDescription={post.body} />}
-          </p>
+            <br />
+            <br />
+            <br />
 
-          <br />
-          <br />
-          <br />
-
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Image.PreviewGroup
-              preview={{
-                onChange: (current, prev) => console.log(`current index: ${current}, prev index: ${prev}`),
-              }}
-            >
-              {post.images.map((image) => (
-                <Image src={`${imageLink}/${image}`} alt="Image" width={550} />
-              ))}
-            </Image.PreviewGroup>
-          </div>
-        </Card>
-      ))}
-    </>
-  );
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Image.PreviewGroup
+                preview={{
+                  onChange: (current, prev) => console.log(`current index: ${current}, prev index: ${prev}`),
+                }}
+              >
+                {post.images.map((image) => (
+                  <Image src={`${imageLink}/${image}`} alt="Image" width={550} />
+                ))}
+              </Image.PreviewGroup>
+            </div>
+          </Card>
+        ))}
+      </>
+    );
+  }
 }
 
 export default HomePage
