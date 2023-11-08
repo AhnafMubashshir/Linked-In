@@ -6,10 +6,9 @@ const axios = require('axios');
 router.get('/getPosts', async (req, res) => {
 
     try {
-        const authResponse = await axios.post('http://localhost:6004/users/authenticate', {
+        const authResponse = await axios.post('http://host.docker.internal/users/authenticate', {
             headers: req.headers,
         });
-
         const posts = await Post.find({ creatorID: { $ne: authResponse.data.id } }).sort({ createdAt: -1 });
 
         console.log(authResponse.data);
@@ -49,7 +48,7 @@ router.post('/createPost', async (req, res) => {
     const seen = false;
 
     try {
-        const authResponse = await axios.post('http://localhost:6004/users/authenticate', {
+        const authResponse = await axios.post('http://host.docker.internal/users/authenticate', {
             headers: req.headers, // Pass the token received in the request headers
         });
 
@@ -66,7 +65,7 @@ router.post('/createPost', async (req, res) => {
 
         console.log('Post created succesfully');
 
-        const userResponse = await axios.post('http://localhost:6004/users/findUserExceptCreator', {
+        const userResponse = await axios.post('http://host.docker.internal/users/findUserExceptCreator', {
             _id: { $ne: authResponse.data.id }
         });
 
@@ -83,9 +82,9 @@ router.post('/createPost', async (req, res) => {
             seen: seen,
         }));
 
-        console.log(notificationRecipients);
+        console.log('Recipients: ',notificationRecipients);
 
-        const notificationConfirmation = await axios.post('http://localhost:6002/notifications/createNotification', {
+        const notificationConfirmation = await axios.post('http://host.docker.internal/notifications/createNotification', {
             message: notificationMessage,
             recipients: notificationRecipients,
             postID: post._id,

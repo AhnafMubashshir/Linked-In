@@ -9,12 +9,14 @@ var Minio = require('minio');
 const bucketName = 'linkedinimages';
 
 var minioClient = new Minio.Client({
-    endPoint: '192.168.0.107',
+    endPoint: 'localhost',
     port: 9000,
     useSSL: false,
-    accessKey: 'QhNErohrKnLPe60xM6tc',
-    secretKey: 'wdVKF0Zr3YOwYf18kH3YzY9vOm8JH7PalccwH0CE'
+    accessKey: 'FsQgxbvJCpxEhmhlaKAW',
+    secretKey: 'fva8WCJa4DErTQYmJfY2MmAD8Wz9lszI9Vtcncnp'
 });
+
+console.log(minioClient);
 
 var policy = {
     Version: "2012-10-17",

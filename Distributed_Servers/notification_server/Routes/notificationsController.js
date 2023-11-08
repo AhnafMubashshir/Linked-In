@@ -6,7 +6,7 @@ const axios = require('axios');
 
 router.post('/getNotifications', async (req, res) => {
 
-  const authResponse = await axios.post('http://localhost:6004/users/authenticate', {
+  const authResponse = await axios.post('http://host.docker.internal/users/authenticate', {
     headers: req.headers, // Pass the token received in the request headers
   });
 
