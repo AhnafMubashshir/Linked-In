@@ -5,7 +5,7 @@ import axios from 'axios';
 import PostDescription from './PostDescription';
 const { Meta } = Card;
 
-const link = 'http://localhost:6003';
+const link = 'http://localhost';
 const imageLink = 'http://192.168.0.107:9000/linkedinimages';
 
 const CustomPostViewerPage = () => {

@@ -4,7 +4,7 @@ import { Input, Button, Row, Col } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import Uploader from './Uploader';
 
-const link = 'http://localhost:6003';
+const link = 'http://localhost';
 
 const PostCreation = () => {
 

@@ -37,7 +37,7 @@ import { useNavigate } from 'react-router-dom';
     },
   };
   
-  const link = 'http://localhost:6004';
+  const link = 'http://localhost';
 
   const LoginPage = () => {
     const [form] = Form.useForm();

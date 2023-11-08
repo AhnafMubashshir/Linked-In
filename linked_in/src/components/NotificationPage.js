@@ -13,7 +13,7 @@ const NotificationPage = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
-  const link = 'http://localhost:6002';
+  const link = 'http://localhost';
 
   useEffect(() => {
     const fetchNotifications = async () => {
