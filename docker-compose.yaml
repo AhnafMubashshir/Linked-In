@@ -22,9 +22,9 @@ services:
     image: upload
     ports:
       - '6001:6001'
-    volumes:
-      - ./Distributed_Servers/file_upload_server:/mini-linkedin/upload
-      - ./mini-linkedin/upload/node_modules
+    # volumes:
+    #   - ./Distributed_Servers/file_upload_server:/mini-linkedin/upload
+    #   - ./mini-linkedin/upload/node_modules
   
   notification:
     build: 
@@ -34,9 +34,9 @@ services:
     image: notification
     ports:
       - '6002:6002'
-    volumes:
-      - ./Distributed_Servers/notification_server:/mini-linkedin/notifications
-      - ./mini-linkedin/notifications/node_modules
+    # volumes:
+    #   - ./Distributed_Servers/notification_server:/mini-linkedin/notifications
+    #   - ./mini-linkedin/notifications/node_modules
 
   post:
     build: 
@@ -47,9 +47,9 @@ services:
 
     ports:
       - '6003:6003'
-    volumes:
-      - ./Distributed_Servers/post_server:/mini-linkedin/posts
-      - ./mini-linkedin/posts/node_modules
+    # volumes:
+    #   - ./Distributed_Servers/post_server:/mini-linkedin/posts
+    #   - ./mini-linkedin/posts/node_modules
 
   user:
     build: 
@@ -60,9 +60,9 @@ services:
 
     ports:
       - '6004:6004'
-    volumes:
-      - ./Distributed_Servers/user_server:/mini-linkedin/users
-      - ./mini-linkedin/users/node_modules
+    # volumes:
+    #   - ./Distributed_Servers/user_server:/mini-linkedin/users
+    #   - ./mini-linkedin/users/node_modules
 
   user_db:
     image: mongo:latest

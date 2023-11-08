@@ -1,4 +1,4 @@
-FROM node:18.12.0
+FROM node:18-alpine
 
 WORKDIR /mini-linkedin/frontend
 
@@ -10,4 +10,4 @@ RUN npm i --verbose
 
 COPY . .
 
-CMD ["nodemon", "npm", "start"]
+CMD ["npm", "run", "start"]

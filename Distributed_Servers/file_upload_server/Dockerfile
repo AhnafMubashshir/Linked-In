@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as the base image
-FROM node:18.12.0
+FROM node:18-alpine
 
 RUN npm install -g nodemon --verbose
 

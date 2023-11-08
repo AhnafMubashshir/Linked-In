@@ -4,7 +4,7 @@ import { Descriptions, Spin, Row, Col, Image } from 'antd';
 import PostCreation from './PostCreation';
 
 const link = 'http://localhost';
-const imageLink = 'http://host.docker.internal:9000/linkedinimages';
+const imageLink = "http://192.168.0.107:9000/linkedinimages";
 
 const ProfilePage = () => {
 

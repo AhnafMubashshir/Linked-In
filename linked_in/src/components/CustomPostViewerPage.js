@@ -6,7 +6,7 @@ import PostDescription from './PostDescription';
 const { Meta } = Card;
 
 const link = 'http://localhost';
-const imageLink = 'http://host.docker.internal:9000/linkedinimages';
+const imageLink = "http://192.168.0.107:9000/linkedinimages";
 
 const CustomPostViewerPage = () => {
     const { postID } = useParams();
